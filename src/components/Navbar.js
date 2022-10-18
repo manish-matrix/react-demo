@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Navbar(){
-	function closeNav(){
+  function closeNav(){
 		document.getElementById("myNav").style.width = "0%";
 	}
 	function openNav(){
@@ -22,7 +22,7 @@ export default function Navbar(){
             <ul className="navbar-nav justify-content-between ">
               <div className="d-none d-lg-flex">
                 <li className="nav-item">
-                  <a className="nav-link" href="fruit.html">
+                  <a className="nav-link" href="/contact">
                     Customer Number : 01234567890</a>
                 </li>
                 <li className="nav-item">

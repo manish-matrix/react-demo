@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import Product from './../components/Product';
+import Carousel from 'react-bootstrap/Carousel';
+import { useParams } from "react-router-dom";
 
-export default function ProductsSection(){
+
+export default function ProductDetails(){
 	// function callApi() {
+		const { id } = useParams();
 		const [error, setError] = useState(null);
 		const [isLoaded, setIsLoaded] = useState(false);
-		const [products, setProducts] = useState([]);
+		const [product, setProduct] = useState([]);
 		
 		useEffect(() => {
-			fetch("https://dummyjson.com/products?limit=12&skip=10&select=id,title,price,thumbnail")
+			fetch(`https://dummyjson.com/products/${id}`)
 				.then(res => res.json())
 				.then(
 					(result) => {
 						setIsLoaded(true);
-						setProducts(result.products);
-						// console.log(result.products)
+						setProduct(result);
+						console.log(result)
 					},
 					// Note: it's important to handle errors here
 					// instead of a catch() block so that we don't swallow
@@ -32,20 +35,25 @@ export default function ProductsSection(){
   } else {
 		return (
 			<section className="products_section">
-				<div className="heading_container">
-					<h2>
-						New Products In Store
-					</h2>
-					<p>
-						Featured Product Just Arrived
-					</p>
-				</div>
 				<div className="container layout_padding">
 					<div className="product_container">
-						{products.map((product, idx) => (
-							// <div key={idx}>{product.price}</div>	
-							<Product product={product} key={idx} />
-						))}
+						<div className="">
+							<Carousel>
+								{product.images.map((image, idx) => (
+									<Carousel.Item>
+									<img src={image} />
+									</Carousel.Item>
+								))}
+							</Carousel>
+							<div className="">
+								<span>
+									${	product.price ?? 'N/A' }
+								</span>
+								<h3>
+									{	product.title }
+								</h3>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
